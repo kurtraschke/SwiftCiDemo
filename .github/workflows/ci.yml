@@ -30,14 +30,14 @@ jobs:
       
       - name: Get output path
         run: |
-          swift build --show-bin-path --arch arm64 --arch x86_64 > ARTIFACT_PATH
+          swift build --show-bin-path --arch arm64 --arch x86_64 > $ARTIFACT_PATH
           echo "artifactPath=${ARTIFACT_PATH}" >> $GITHUB_ENV
       
       - name: Build
-        run: swift -c debug --arch x86_64 --arch arm64 --build-tests
+        run: swift build -c debug --arch x86_64 --arch arm64 --build-tests
       
       - name: Test
-        run: swift -c debug test
+        run: swift test -c debug
       
       - name: Upload test artifacts
         uses: actions/upload-artifact@v3
