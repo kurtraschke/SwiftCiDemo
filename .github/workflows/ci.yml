@@ -30,8 +30,7 @@ jobs:
       
       - name: Get output path
         run: |
-          swift build --show-bin-path --arch arm64 --arch x86_64 > $ARTIFACT_PATH
-          echo "artifactPath=${ARTIFACT_PATH}" >> $GITHUB_ENV
+          echo "artifactPath=$(swift build --show-bin-path --arch arm64 --arch x86_64)" >> $GITHUB_ENV
       
       - name: Build
         run: swift build -c debug --arch x86_64 --arch arm64 --build-tests
