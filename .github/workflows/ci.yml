@@ -15,6 +15,7 @@ on:
       - 'Tests/**'
       - '.github/workflows/**'
       - 'Package.swift'
+  workflow_dispatch:
 
 concurrency:
   group: ${{ github.ref_name }}
@@ -26,14 +27,18 @@ jobs:
     runs-on: macos-12
     steps:
       - uses: actions/checkout@v3
+      
       - name: Get output path
         run: |
           swift build --show-bin-path --arch arm64 --arch x86_64 > ARTIFACT_PATH
           echo "artifactPath=${ARTIFACT_PATH}" >> $GITHUB_ENV
+      
       - name: Build
         run: swift -c debug --arch x86_64 --arch arm64 --build-tests
+      
       - name: Test
         run: swift -c debug test
+      
       - name: Upload test artifacts
         uses: actions/upload-artifact@v3
         with:
