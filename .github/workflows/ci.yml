@@ -93,6 +93,7 @@ jobs:
     - name: Get output path
       run: |
         $artifactPath = swift build -c debug --show-bin-path
+        echo $artifactPath
         echo "artifactPath=$artifactPath" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
         
     - name: Build
